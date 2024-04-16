@@ -1,0 +1,66 @@
+services:
+  EpulseFrontEnd:
+    image: 'epulse-client-jenkis:v1'
+    container_name: epulse-client-jenkis-v1
+    ports:
+      - "80:80"
+    networks:
+      - epulse_appraisal_network
+  CommonGateWay:
+    image: 'epulse-common-gateway-service-jenkis:v1'
+    container_name: epulse-server-common-jenkis-v1
+    command: ${APPENV} -c "runApplication.sh" 
+    ports:
+        - "1000:1000"
+    networks:
+      - epulse_appraisal_network
+  MasterService:
+    image: 'epulse-master-service-jenkis:v1'
+    container_name: epulse-server-master-jenkis-v1
+    ports:
+        - "1003:1003"
+    command: ${APPENV} -c "runApplication.sh" 
+    networks:
+      - epulse_appraisal_network
+  EmailService:
+    image: 'epulse-email-service-jenkis:v1'
+    container_name: epulse-server-email-jenkis-v1
+    ports:
+        - "8005:8005"
+    command: ${APPENV} -c "runApplication.sh" 
+    networks:
+      - epulse_appraisal_network
+  LoggerService:
+    image: 'epulse-logger-service-jenkis:v1'
+    container_name: epulse-server-logger-jenkis-v1
+    ports:
+        - "1004:1004"
+    command: ${APPENV} -c "runApplication.sh" 
+    networks:
+      - epulse_appraisal_network
+  AppraisalGateWay:
+    image: 'epulse-appraisal-gateway-service-jenkis:v1'
+    container_name: epulse-server-appraisal-gateway-jenkis-v1
+    ports:
+        - "1001:1001"
+        - "1002:1002"
+    command: ${APPENV} -c "runApplication.sh" 
+    networks:
+      - epulse_appraisal_network
+  AppraisalAPI:
+    image: 'epulse-server-appraisal-api-jenkis:v1'
+    container_name: epulse-server-appraisal-api-jenkis-v1
+    ports:
+        - "6000:6000"
+    networks:
+      - epulse_appraisal_network
+  AppraisalBackEnd:
+    image: 'epulse-server-appraisal-backend-jenkis:v1'
+    container_name: epulse-server-appraisal-backend-jenkis-v1
+    ports:
+        - "5000:5000"
+    networks:
+      - epulse_appraisal_network
+networks:
+  epulse_appraisal_network1:
+          driver: bridge
