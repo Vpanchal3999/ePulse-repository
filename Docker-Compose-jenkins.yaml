@@ -39,7 +39,7 @@ services:
     networks:
       - epulse_appraisal_network1
   AppraisalGateWay:
-    image: 'epulse-appraisal-gateway-service-jenkis:v1'
+    image: 'epulse-appraisal-gateway-jenkis:v1'
     container_name: epulse-server-appraisal-gateway-v1
     ports:
         - "1001:1001"
