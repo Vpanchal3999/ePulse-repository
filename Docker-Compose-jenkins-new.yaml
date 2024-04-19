@@ -7,7 +7,7 @@ services:
     networks:
       - epulse_appraisal_network1
   CommonGateWay:
-    image: 'epulse-common-service-jenkis:v1'
+    image: 'epulse-common-gateway-service-jenkis:v1'
     container_name: epulse-server-common-v1
     environment:
       - APP_ENV=prepr
