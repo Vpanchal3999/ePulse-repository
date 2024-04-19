@@ -1,0 +1,72 @@
+services:
+  EpulseFrontEnd:
+    image: 'epulse-client-jenkis:v1'
+    container_name: epulse-client-jenkis-v1
+    ports:
+      - "80:80"
+    networks:
+      - epulse_appraisal_network1
+  CommonGateWay:
+    image: 'epulse-master-service-jenkis:v1'
+    container_name: epulse-server-common-v1
+    environment:
+      - APP_ENV=prepr
+    ports:
+        - "1000:1000"
+    networks:
+      - epulse_appraisal_network1
+  MasterService:
+    image: 'epulse-master-service-jenkis:v1'
+    container_name: epulse-server-master-v1
+    environment:
+      - APP_ENV=prepr
+    ports:
+        - "1003:1003"
+    networks:
+      - epulse_appraisal_network1
+  EmailService:
+    image: 'epulse-email-service-jenkis:v1'
+    container_name: epulse-server-email-v1
+    environment:
+      - APP_ENV=prepr
+    ports:
+        - "8005:8005"
+    command: prepr -c "./runApplication.sh" 
+    networks:
+      - epulse_appraisal_network1
+  LoggerService:
+    image: 'epulse-logger-service-jenkis:v1'
+    container_name: epulse-server-logger-v1
+    environment:
+      - APP_ENV=prepr
+    ports:
+        - "1004:1004"
+    networks:
+      - epulse_appraisal_network1
+  AppraisalGateWay:
+    image: 'epulse-appraisal-gateway-jenkis:v1'
+    container_name: epulse-server-appraisal-gateway-v1
+    environment:
+      - APP_ENV=prepr
+    ports:
+        - "1001:1001"
+        - "1002:1002"
+    networks:
+      - epulse_appraisal_network1
+  AppraisalAPI:
+    image: 'epulse-server-appraisal-api-jenkis:v1'
+    container_name: epulse-server-appraisal-api-v1
+    ports:
+        - "6000:6000"
+    networks:
+      - epulse_appraisal_network1
+  AppraisalBackEnd:
+    image: 'epulse-server-appraisal-backend-jenkis:v1'
+    container_name: epulse-server-appraisal-backend-v1
+    ports:
+        - "5000:5000"
+    networks:
+      - epulse_appraisal_network1
+networks:
+  epulse_appraisal_network1:
+          driver: bridge
